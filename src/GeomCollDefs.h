@@ -5,8 +5,9 @@ namespace geom::colldef {
 	class entryheader : public ISection
 	{
 	private:
-		static constexpr inline int32_t UNUSED_HASH0{ 3561833074 };
-		int32_t m_unknownFlag{ 16 }, m_nextSectionOffset;
+		static constexpr inline uint32_t UNUSED_HASH0{ 3561833074 };
+		int32_t m_unknownFlag{ 16 };
+		uint32_t m_nextSectionOffset;
 		int32_t m_previousEntryOffset;
 		uint32_t m_nextEntryOffset;
 
