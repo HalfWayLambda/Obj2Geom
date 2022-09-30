@@ -93,25 +93,25 @@ namespace geom {
 				CLIFF << 14 |
 				UNUSED4 << 15 |
 
-				UNUSED6 << 32 |
-				DONT_FALL << 33 |
-				CAMERA << 34 |
-				UNUSED2 << 35 |
+				UNUSED6 << 16 |
+				DONT_FALL << 17 |
+				CAMERA << 18 |
+				UNUSED2 << 19 |
 
-				UNUSED1 << 36 |
-				UNUSED0 << 37 |
-				CLIFF_FLOOR << 38 |
-				BULLET_MARK << 39 |
+				UNUSED1 << 20 |
+				UNUSED0 << 21 |
+				CLIFF_FLOOR << 22 |
+				BULLET_MARK << 23 |
 
-				HEIGHT_LIMIT << 40 |
-				DOUBLE_SLIDE << 41 |
-				WATER_SURFACE << 42 |
-				TARGET_BLOCK << 43 |
+				HEIGHT_LIMIT << 24 |
+				DOUBLE_SLIDE << 25 |
+				WATER_SURFACE << 26 |
+				TARGET_BLOCK << 27 |
 
-				DOG << 44 |
-				NO_EFFECT << 45 |
-				EVENT_PHYSICS << 46 |
-				NO_WALL_MOVE << 47 |
+				DOG << 28 |
+				NO_EFFECT << 29 |
+				EVENT_PHYSICS << 30 |
+				NO_WALL_MOVE << 31 | // 47 - 16, 46 - 16 and so on
 
 				MISSILE2 << 48 |
 				RIDE_ON_OUTER << 49 |
