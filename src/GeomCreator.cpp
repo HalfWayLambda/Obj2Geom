@@ -20,7 +20,7 @@ std::string GeomCreator::replaceFileExtension(const char* fileName)
 	return outputName;
 }
 
-// creates a geom file and writes the output to the file parameter
+// creates a geom file
 void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t selectedMaterial,
 	const geom::COLLISION_TAGS& collisionTags)
 {
