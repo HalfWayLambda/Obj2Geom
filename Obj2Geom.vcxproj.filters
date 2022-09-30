@@ -27,7 +27,7 @@
     <ClCompile Include="src\GeomCollDefs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GeomFile.cpp">
+    <ClCompile Include="src\GeomCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="src\GeomCollDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GeomFile.h">
+    <ClInclude Include="src\GeomCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CFileWrapper.h">

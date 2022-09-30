@@ -4,10 +4,24 @@
 #include "Geom.h"
 #include "GeomCollDefs.h"
 #include "VertexData.h"
-#include "GeomFile.h"
+#include "GeomCreator.h"
+
+std::string GeomCreator::replaceFileExtension(const char* fileName)
+{
+	std::string outputName{ fileName };
+	std::size_t extensionOffset{ outputName.rfind('.') };
+	std::size_t backslashOffset{ outputName.rfind('\\') };
+	// erase the current OBJ's file extension
+	if (extensionOffset != std::string::npos && extensionOffset > backslashOffset)
+	{
+		outputName.erase(extensionOffset);
+	}
+	outputName.append(".geom");
+	return outputName;
+}
 
 // creates a geom file and writes the output to the file parameter
-GeomFile::GeomFile(smp::file& file, const OBJ& obj, uint32_t selectedMaterial)
+void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t selectedMaterial)
 {
 	// this constructor creates one collision definition
 
@@ -58,33 +72,37 @@ GeomFile::GeomFile(smp::file& file, const OBJ& obj, uint32_t selectedMaterial)
 			dataChunkDefEntry_n_materialsSectionSize
 		);
 		// a cheap solution if there's only one data chunk attached to the vertex data. if
-		// there's more, the size of every single data chunk after this onehas to be summed up
+		// there's more, the size of every single data chunk after this one has to be summed up
 		dataChunkQuad.updateVertexDataOffset(dataChunkQuad.getSize() / 16);
 
 		// ================
 		// end of offset updates
 		// ================
 
-		header.write(file);
-		entryHeader.write(file);
-		entrySecHeader.write(file);
+		std::string outputName{ replaceFileExtension(fileName) };
+		
+		smp::file outputGeom(outputName.c_str(), smp::fileflags::WRITE);
+		header.write(outputGeom);
+		entryHeader.write(outputGeom);
+		entrySecHeader.write(outputGeom);
 		// data chunk definition entries
-		entryDataChunkDefEntry.write(file);
-		emptyDataChunkEntry.write(file);
+		entryDataChunkDefEntry.write(outputGeom);
+		emptyDataChunkEntry.write(outputGeom);
 		// materials section
-		entryMaterialsSection.write(file);
-		entryMaterialsSection.writeDataChunkGap(file);
+		entryMaterialsSection.write(outputGeom);
+		entryMaterialsSection.writeDataChunkGap(outputGeom);
 
 		// data chunks
-		dataChunkBoundingBox.write(file);
-		dataChunkBoundingBox.write(file);
-		dataChunkQuad.write(file);
-		vertexData.write(file);
+		dataChunkBoundingBox.write(outputGeom);
+		dataChunkBoundingBox.write(outputGeom);
+		dataChunkQuad.write(outputGeom);
+		vertexData.write(outputGeom);
+
+		outputGeom.close();
 	}
 	catch (const std::exception& e)
 	{
 		std::cout << e.what();
-		std::cout << "\nThe resulting file will be empty.\n";
 		std::cin.get();
 	}
 }

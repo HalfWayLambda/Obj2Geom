@@ -169,7 +169,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GeomFile.cpp" />
+    <ClCompile Include="src\GeomCreator.cpp" />
     <ClCompile Include="src\Geom.cpp" />
     <ClCompile Include="src\GeomCollDefs.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -177,7 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CFileWrapper.h" />
-    <ClInclude Include="src\GeomFile.h" />
+    <ClInclude Include="src\GeomCreator.h" />
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\Geom.h" />
     <ClInclude Include="src\GeomCollDefs.h" />

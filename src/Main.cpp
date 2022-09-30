@@ -6,7 +6,7 @@
 #include "CFileWrapper.h"
 #include "Geom.h"
 #include "GeomCollDefs.h"
-#include "GeomFile.h"
+#include "GeomCreator.h"
 #include "VertexData.h"
 #include "OBJ.h"
 
@@ -196,15 +196,7 @@ int main(int argc, char* argv[])
 			OBJ obj{ argv[i] };
 			if (obj.wasSuccessful())
 			{
-				std::string outputName{ argv[i] };
-
-				// TODO: replace this with an extension finder
-				// erase the extension, if it was .obj
-				outputName = outputName.substr(0, outputName.length() - 4);
-				outputName.append(".geom");
-				smp::file output(outputName.c_str(), smp::fileflags::WRITE);
-				GeomFile outputGeom{ output, obj, selectedMaterial };
-				output.close();
+				GeomCreator::createGeom(argv[i], obj, selectedMaterial);
 			}
 			else
 			{
