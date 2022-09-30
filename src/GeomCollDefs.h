@@ -5,15 +5,15 @@ namespace geom::colldef {
 	class entryheader : public ISection
 	{
 	private:
-		uint32_t m_unusedHash0, m_unknownFlag, m_nextSectionOffset;
+		static constexpr inline int32_t UNUSED_HASH0{ 3561833074 };
+		int32_t m_unknownFlag{ 16 }, m_nextSectionOffset;
 		int32_t m_previousEntryOffset;
 		uint32_t m_nextEntryOffset;
 
 	public:
 		entryheader(uint32_t nextSectionOffset, int32_t previousEntryOffset,
 			uint32_t nextEntryOffset)
-			: m_unusedHash0{ 3561833074 }, m_unknownFlag{ 16 },
-			m_nextSectionOffset{ nextSectionOffset },
+			: m_nextSectionOffset{ nextSectionOffset },
 			m_previousEntryOffset{ previousEntryOffset },
 			m_nextEntryOffset{ nextEntryOffset }
 		{}

@@ -7,7 +7,7 @@
 namespace geom::colldef {
 	void entryheader::write(smp::file& file) const
 	{
-		file.write(m_unusedHash0, static_cast<uint32_t>(0), m_unknownFlag);
+		file.write(UNUSED_HASH0, static_cast<uint32_t>(0), m_unknownFlag);
 		file.fill(12);
 		file.write(m_nextSectionOffset);
 		file.write(m_previousEntryOffset, m_nextEntryOffset);

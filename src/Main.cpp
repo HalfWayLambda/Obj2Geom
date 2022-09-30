@@ -148,8 +148,9 @@ geom::COLLISION_TAGS parseCollisionConfigFile()
 	}
 	else
 	{
-		std::cout << "WARNING: No collision_flags.txt config file detected! The tool "
-			"will automatically use the most useful flags!\n";
+		std::cout << "WARNING: No collision_flags.txt config file detected "
+			"or it couldn't be opened! The tool will automatically use the "
+			"most useful flags!\n";
 		output.ITEM = 1; output.MARKER = 1; output.VEHICLE = 1; output.HORSE = 1;
 		output.MISSILE2 = 1; output.NO_WALL_MOVE = 1; output.BULLET_MARK = 1;
 		output.CAMERA = 1; output.STOP_EYE = 1; output.IK = 1; output.BLOOD = 1;
