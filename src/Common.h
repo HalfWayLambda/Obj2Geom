@@ -191,6 +191,12 @@ namespace geom {
 			m_vertexDataOffset = 0;
 		}
 
+		GeoCollisionShapeHeader(const COLLISION_TAGS& tags)
+			: GeoCollisionShapeHeader()
+		{
+			m_collisionTags = tags;
+		}
+
 		GeoCollisionShapeHeader(const GEO_COLLISION_SHAPE_TYPE& shapeType,
 			const GEO_COLLISION_SHAPE_FLAGS& shapeFlags,
 			uint32_t entryCount, uint32_t nextBBDataChunkOffset, uint32_t nextIndexDataChunkOffset,

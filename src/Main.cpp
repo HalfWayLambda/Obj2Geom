@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <string_view>
 #include <array>
 #include "CFileWrapper.h"
@@ -9,18 +10,7 @@
 #include "GeomCreator.h"
 #include "VertexData.h"
 #include "OBJ.h"
-
-/*
-uint32_t MtrCode32(const std::string& str)
-{
-	uint32_t hash{ str.length() };
-	for (int i{ static_cast<int>(str.length()) }; i >= 0; i--)
-	{
-		hash = hash ^ str[i] + hash * 0x20 + (hash >> 2);
-	}
-	return hash;
-}
-*/
+#include "Common.h"
 
 int MtrCode32(const char* materialName)
 {
@@ -30,6 +20,144 @@ int MtrCode32(const char* materialName)
 	for (int i = materialNameLength - 1; i >= 0; i--)
 		hash = hash ^ materialName[i] + hash * 0x20 + (hash >> 2);
 	return hash;
+}
+
+geom::COLLISION_TAGS parseCollisionConfigFile()
+{
+	std::ifstream input{ "collision_flags.txt" };
+	geom::COLLISION_TAGS output{};
+	if (input.is_open())
+	{
+		std::string curLine{};
+		while (std::getline(input, curLine))
+		{
+			// ignore comments, spaces and empty lines
+			if (curLine[0] == '#' || curLine[0] == ' ' || curLine[0] == '\t' ||
+				curLine[0] == '\n' || curLine == "")
+				continue;
+			else
+			{
+				for (size_t i{ 0 }; i < curLine.length(); i++)
+					curLine[i] = static_cast<char>(
+						toupper(static_cast<char>(curLine[i]))
+					);
+
+				if (curLine == "UNKNOWN1")
+					output.UNKNOWN1 = 1;
+				else if (curLine == "RECOIL_FLOOR_MAYBE")
+					output.RECOIL_FLOOR_MAYBE = 1;
+				else if (curLine == "UNKNOWN0")
+					output.UNKNOWN0 = 1;
+				else if (curLine == "CHARA_MAYBE")
+					output.CHARA_MAYBE = 1;
+				else if (curLine == "PLAYER")
+					output.PLAYER = 1;
+				else if (curLine == "ENEMY")
+					output.ENEMY = 1;
+				else if (curLine == "BULLET")
+					output.BULLET = 1;
+				else if (curLine == "MISSILE")
+					output.MISSILE = 1;
+				else if (curLine == "BOMB")
+					output.BOMB = 1;
+				else if (curLine == "UNUSED5")
+					output.UNUSED5 = 1;
+				else if (curLine == "BLOOD")
+					output.BLOOD = 1;
+				else if (curLine == "IK")
+					output.IK = 1;
+				else if (curLine == "STAIRWAY")
+					output.STAIRWAY = 1;
+				else if (curLine == "STOP_EYE")
+					output.STOP_EYE = 1;
+				else if (curLine == "CLIFF")
+					output.CLIFF = 1;
+				else if (curLine == "UNUSED4")
+					output.UNUSED4 = 1;
+				else if (curLine == "UNUSED6")
+					output.UNUSED6 = 1;
+				else if (curLine == "DONT_FALL")
+					output.DONT_FALL = 1;
+				else if (curLine == "CAMERA")
+					output.CAMERA = 1;
+				else if (curLine == "UNUSED2")
+					output.UNUSED2 = 1;
+				else if (curLine == "UNUSED1")
+					output.UNUSED1 = 1;
+				else if (curLine == "UNUSED0")
+					output.UNUSED0 = 1;
+				else if (curLine == "CLIFF_FLOOR")
+					output.CLIFF_FLOOR = 1;
+				else if (curLine == "BULLET_MARK")
+					output.BULLET_MARK = 1;
+				else if (curLine == "HEIGHT_LIMIT")
+					output.HEIGHT_LIMIT = 1;
+				else if (curLine == "DOUBLE_SLIDE")
+					output.DOUBLE_SLIDE = 1;
+				else if (curLine == "WATER_SURFACE")
+					output.WATER_SURFACE = 1;
+				else if (curLine == "TARGET_BLOCK")
+					output.TARGET_BLOCK = 1;
+				else if (curLine == "DOG")
+					output.DOG = 1;
+				else if (curLine == "NO_EFFECT")
+					output.NO_EFFECT = 1;
+				else if (curLine == "EVENT_PHYSICS")
+					output.EVENT_PHYSICS = 1;
+				else if (curLine == "NO_WALL_MOVE")
+					output.NO_WALL_MOVE = 1;
+				else if (curLine == "MISSILE2")
+					output.MISSILE2 = 1;
+				else if (curLine == "RIDE_ON_OUTER")
+					output.RIDE_ON_OUTER = 1;
+				else if (curLine == "FLAME")
+					output.FLAME = 1;
+				else if (curLine == "IGNORE_PHYSICS")
+					output.IGNORE_PHYSICS = 1;
+				else if (curLine == "CLIMB")
+					output.CLIMB = 1;
+				else if (curLine == "HORSE")
+					output.HORSE = 1;
+				else if (curLine == "VEHICLE")
+					output.VEHICLE = 1;
+				else if (curLine == "MARKER")
+					output.MARKER = 1;
+				else if (curLine == "RIDE_ON")
+					output.RIDE_ON = 1;
+				else if (curLine == "THROUGH_LINE_OF_FIRE")
+					output.THROUGH_LINE_OF_FIRE = 1;
+				else if (curLine == "THROUGH_ITEM_CHECK")
+					output.THROUGH_ITEM_CHECK = 1;
+				else if (curLine == "NO_CREEP")
+					output.NO_CREEP = 1;
+				else if (curLine == "NO_FULTON")
+					output.NO_FULTON = 1;
+				else if (curLine == "FULTON")
+					output.FULTON = 1;
+				else if (curLine == "ITEM")
+					output.ITEM = 1;
+				else if (curLine == "BOSS")
+					output.BOSS = 1;
+				else
+				{
+					std::cout << "WARNING: Unknown flag type \"" << curLine << "\"";
+					std::cin.get();
+				}
+			}
+		}
+	}
+	else
+	{
+		std::cout << "WARNING: No collision_flags.txt config file detected! The tool "
+			"will automatically use the most useful flags!\n";
+		output.ITEM = 1; output.MARKER = 1; output.VEHICLE = 1; output.HORSE = 1;
+		output.MISSILE2 = 1; output.NO_WALL_MOVE = 1; output.BULLET_MARK = 1;
+		output.CAMERA = 1; output.STOP_EYE = 1; output.IK = 1; output.BLOOD = 1;
+		output.BOMB = 1; output.MISSILE = 1; output.BULLET = 1; output.ENEMY = 1;
+		output.PLAYER = 1; output.CHARA_MAYBE = 1; output.UNKNOWN0 = 1;
+		output.RECOIL_FLOOR_MAYBE = 1;
+	}
+	return output;
 }
 
 static const std::array<std::pair<uint32_t, const char*>, 82> materialMap
@@ -118,6 +246,7 @@ static const std::array<std::pair<uint32_t, const char*>, 82> materialMap
 	std::pair{ 81, "MTR_NONE_A" },
 };
 
+geom::COLLISION_TAGS selectedTags{};
 uint32_t selectedMaterial{ 3123657899 }; // MTR_IRON_A by default
 
 // returns true if this is a flag (and adjusts whatever is needed), false otherwise
@@ -188,6 +317,7 @@ int main(int argc, char* argv[])
 	}
 	else if (argc > 1)
 	{
+		selectedTags = parseCollisionConfigFile();
 		for (int i{ 1 }; i < argc; i++)
 		{
 			if (checkForFlag(argc, i, argv))
@@ -196,7 +326,7 @@ int main(int argc, char* argv[])
 			OBJ obj{ argv[i] };
 			if (obj.wasSuccessful())
 			{
-				GeomCreator::createGeom(argv[i], obj, selectedMaterial);
+				GeomCreator::createGeom(argv[i], obj, selectedMaterial, selectedTags);
 			}
 			else
 			{

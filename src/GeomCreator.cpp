@@ -21,21 +21,22 @@ std::string GeomCreator::replaceFileExtension(const char* fileName)
 }
 
 // creates a geom file and writes the output to the file parameter
-void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t selectedMaterial)
+void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t selectedMaterial,
+	const geom::COLLISION_TAGS& collisionTags)
 {
 	geom::header header{};
 	geom::colldef::entryheader entryHeader{ 48, 0, 0 };
 
 	geom::colldef::entrysecondaryheader entrySecHeader{ GEOM_ENTRY_TYPE::GEOM_ENTRY_TYPE_6, 48 };
-	geom::colldef::entrydatachunkdefinitionentry entryDataChunkDefEntry{},
+	geom::colldef::entrydatachunkdefinitionentry entryDataChunkDefEntry{ collisionTags },
 		emptyDataChunkEntry{ true };
 	geom::colldef::entrymaterialssection entryMaterialsSection{ selectedMaterial };
 
-	geom::colldef::datachunk_bb dataChunkBoundingBox{ obj };
+	geom::colldef::datachunk_bb dataChunkBoundingBox{ obj, collisionTags };
 	// 1) datachunk quad can fail if the OBJ has weird faces or they're more than 255
 	// 2) offset updates for entryDataChunkDefEntry also fail if the offset overflows
 	try {
-		geom::colldef::datachunk_quad dataChunkQuad{ obj };
+		geom::colldef::datachunk_quad dataChunkQuad{ obj, collisionTags };
 		geom::VertexData vertexData{ obj.getVertices() };
 		// the geom structure is ready at this point, now the offsets have to be updated
 
@@ -77,9 +78,10 @@ void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t sele
 		// end of offset updates
 		// ================
 
+		// create the file
 		std::string outputName{ replaceFileExtension(fileName) };
-		
 		smp::file outputGeom(outputName.c_str(), smp::fileflags::WRITE);
+
 		header.write(outputGeom);
 		entryHeader.write(outputGeom);
 		entrySecHeader.write(outputGeom);

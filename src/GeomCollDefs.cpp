@@ -110,22 +110,8 @@ namespace geom::colldef {
 		m_shapeHeader.m_vertexDataOffset = newOffset;
 	}
 
-	datachunk_bb::datachunk_bb(const OBJ& obj)
+	datachunk_bb::datachunk_bb(const OBJ& obj, const COLLISION_TAGS& tags)
 	{
-		geom::COLLISION_TAGS tags{};
-		tags.PLAYER = 1;
-		tags.BLOOD = 1;
-		tags.CAMERA = 1;
-
-		tags.DOG = 1;
-		tags.NO_EFFECT = 1;
-		tags.EVENT_PHYSICS = 1;
-		tags.NO_WALL_MOVE = 1;
-
-		tags.FULTON = 1;
-		tags.NO_FULTON = 1;
-		tags.ITEM = 1;
-		tags.BOSS = 1;
 		geom::GeoCollisionShapeHeader shapeHeader{
 			geom::GEO_COLLISION_SHAPE_TYPE::BOUNDING_BOX,
 			geom::GEO_COLLISION_SHAPE_FLAGS::UNKNOWN3,
@@ -159,11 +145,8 @@ namespace geom::colldef {
 		writeWideVector3(file, m_boundingBoxCenter);
 	}
 
-	datachunk_quad::datachunk_quad(const OBJ& objFile)
+	datachunk_quad::datachunk_quad(const OBJ& objFile, const COLLISION_TAGS& tags)
 	{
-		geom::COLLISION_TAGS tags{};
-		tags.PLAYER = 1;
-
 		geom::GeoCollisionShapeHeader shapeHeader{
 			geom::GEO_COLLISION_SHAPE_TYPE::QUAD,
 			static_cast<geom::GEO_COLLISION_SHAPE_FLAGS>(0),

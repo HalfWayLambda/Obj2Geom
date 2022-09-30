@@ -1,0 +1,77 @@
+# this is a comment. if this file's missing, Obj2Geom will automatically enable
+# the most useful flags for the GEOM file (it's the default ones you see below).
+# each non-commented line in this file represents one flag, there can only be
+# ONE flag per line!
+# everything will be converted to uppercase (ex "boMB" will become "BOMB").
+
+RECOIL_FLOOR_MAYBE
+UNKNOWN0
+CHARA_MAYBE
+PLAYER
+ENEMY
+BULLET
+MISSILE
+BOMB
+BLOOD
+IK
+STOP_EYE
+CAMERA
+BULLET_MARK
+NO_WALL_MOVE
+MISSILE2
+HORSE
+VEHICLE
+MARKER
+ITEM
+
+# below is a list of all the available flags, some are unknown.
+# note: RIDE_ON and RIDE_ON_OUTER are actually used for GSKL, not GEOM files.
+
+# UNKNOWN1
+# RECOIL_FLOOR_MAYBE
+# UNKNOWN0
+# CHARA_MAYBE
+# PLAYER
+# ENEMY
+# BULLET
+# MISSILE
+# BOMB
+# UNUSED5
+# BLOOD
+# IK
+# STAIRWAY
+# STOP_EYE
+# CLIFF
+# UNUSED4
+# UNUSED6
+# DONT_FALL
+# CAMERA
+# UNUSED2
+# UNUSED1
+# UNUSED0
+# CLIFF_FLOOR
+# BULLET_MARK
+# HEIGHT_LIMIT
+# DOUBLE_SLIDE
+# WATER_SURFACE
+# TARGET_BLOCK
+# DOG
+# NO_EFFECT
+# EVENT_PHYSICS
+# NO_WALL_MOVE
+# MISSILE2
+# RIDE_ON_OUTER
+# FLAME
+# IGNORE_PHYSICS
+# CLIMB
+# HORSE
+# VEHICLE
+# MARKER
+# RIDE_ON
+# THROUGH_LINE_OF_FIRE
+# THROUGH_ITEM_CHECK
+# NO_CREEP
+# NO_FULTON
+# FULTON
+# ITEM
+# BOSS

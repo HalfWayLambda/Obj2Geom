@@ -58,11 +58,14 @@ namespace geom::colldef {
 		uint32_t m_firstDataChunkOffset{ 112 }; // same
 		uint32_t m_nextSectionOffset{ 64 }; // it would be if this tool
 										// made more than one definition entry
-		uint64_t m_collisionFlags{ 36028797027626434 };
+		uint64_t m_collisionFlags{};
 
 	public:
 		entrydatachunkdefinitionentry(bool isFinalEntry = false)
 			: m_isFinalEntry{ isFinalEntry }
+		{}
+		entrydatachunkdefinitionentry(const geom::COLLISION_TAGS& tags)
+			: m_collisionFlags{ tags }, m_isFinalEntry{ false }
 		{}
 		void write(smp::file& file) const override;
 		unsigned int getSize() const override { return 32; }
@@ -101,6 +104,9 @@ namespace geom::colldef {
 		base_datachunk(const GeoCollisionShapeHeader& shapeHeader)
 			: m_shapeHeader{ shapeHeader }
 		{}
+		base_datachunk(const COLLISION_TAGS& tags)
+			: m_shapeHeader{ tags }
+		{}
 		unsigned int getSize() const override { return 32; }
 		void write(smp::file&) const;
 
@@ -116,7 +122,7 @@ namespace geom::colldef {
 		static constexpr inline float MIN_FACTOR{ 0.5f };
 
 	public:
-		datachunk_bb(const OBJ& obj);
+		datachunk_bb(const OBJ& obj, const COLLISION_TAGS&);
 		void write(smp::file&) const;
 		unsigned int getSize() const { return m_baseDataChunk.getSize() + 32; }
 	};
@@ -134,7 +140,7 @@ namespace geom::colldef {
 		unsigned int m_curSize;
 
 	public:
-		datachunk_quad(const OBJ& objFile);
+		datachunk_quad(const OBJ& objFile, const COLLISION_TAGS&);
 		void write(smp::file&) const;
 		unsigned int getSize() const { return m_baseDataChunk.getSize() + m_curSize; }
 
