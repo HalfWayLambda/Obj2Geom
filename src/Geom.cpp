@@ -8,7 +8,7 @@ namespace geom {
 
 	void header::write(smp::file& file) const
 	{
-		file.write(m_version, m_firstEntryOffset, m_fileSize, u1);
+		file.write(GEOM_VERSION, FIRST_ENTRY_OFFSET, m_fileSize, u1);
 		file.fill(8);
 		file.write(UNUSED_HASH0, UNUSED_HASH1);
 	}

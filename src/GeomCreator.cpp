@@ -23,8 +23,6 @@ std::string GeomCreator::replaceFileExtension(const char* fileName)
 // creates a geom file and writes the output to the file parameter
 void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t selectedMaterial)
 {
-	// this constructor creates one collision definition
-
 	geom::header header{};
 	geom::colldef::entryheader entryHeader{ 48, 0, 0 };
 

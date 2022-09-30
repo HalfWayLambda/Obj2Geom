@@ -76,7 +76,7 @@ namespace geom::colldef {
 	class entrymaterialssection : public ISection
 	{
 	private:
-		static constexpr inline uint8_t infoTriplet0{ 2 };
+		uint8_t infoTriplet0{ 2 };
 		static constexpr inline uint8_t infoTriplet1{ 1 };
 		uint32_t m_materialNameHash;
 
@@ -131,7 +131,6 @@ namespace geom::colldef {
 			int16_t unknown{ -510 };
 		};
 		std::vector<IndexSet> m_faces;
-		static constexpr inline int16_t unknownOffset{ -510 };
 		unsigned int m_curSize;
 
 	public:

@@ -18,8 +18,8 @@ namespace geom {
 	class header : public ISection
 	{
 	private:
-		uint32_t m_version{ 201406020 };
-		uint32_t m_firstEntryOffset{ 32 };
+		static constexpr inline uint32_t GEOM_VERSION{ 201406020 };
+		static constexpr inline uint32_t FIRST_ENTRY_OFFSET{ 32 };
 		uint32_t m_fileSize{ 0 }; // has to be updated later
 		static constexpr inline uint32_t UNUSED_HASH0{ 1778469995 };
 		static constexpr inline uint32_t UNUSED_HASH1{ 2321276988 };
