@@ -11,6 +11,11 @@ std::string GeomCreator::replaceFileExtension(const char* fileName)
 	std::string outputName{ fileName };
 	std::size_t extensionOffset{ outputName.rfind('.') };
 	std::size_t backslashOffset{ outputName.rfind('\\') };
+
+	// you can't run Obj2Geom on a geom
+	if (outputName.substr(extensionOffset) == ".geom")
+		throw std::invalid_argument("ERROR: Obj2Geom does not unpack GEOM files!");
+
 	// erase the current OBJ's file extension, if it exists
 	if (extensionOffset != std::string::npos)
 	{
@@ -36,6 +41,7 @@ void GeomCreator::createGeom(const char* fileName, const OBJ& obj, uint32_t sele
 	geom::colldef::datachunk_bb dataChunkBoundingBox{ obj, collisionTags };
 	// 1) datachunk quad can fail if the OBJ has weird faces or they're more than 255
 	// 2) offset updates for entryDataChunkDefEntry also fail if the offset overflows
+	// 3) if you run Obj2Geom on a GEOM, it will fail (obviously)
 	try {
 		geom::colldef::datachunk_quad dataChunkQuad{ obj, collisionTags };
 		geom::VertexData vertexData{ obj.getVertices() };
