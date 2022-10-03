@@ -32,8 +32,7 @@ geom::COLLISION_TAGS parseCollisionConfigFile()
 		while (std::getline(input, curLine))
 		{
 			// ignore comments, spaces and empty lines
-			if (curLine[0] == '#' || curLine[0] == ' ' || curLine[0] == '\t' ||
-				curLine[0] == '\n' || curLine == "")
+			if (curLine[0] == '#' || curLine == "")
 				continue;
 			else
 			{
@@ -140,7 +139,11 @@ geom::COLLISION_TAGS parseCollisionConfigFile()
 					output.BOSS = 1;
 				else
 				{
-					std::cout << "WARNING: Unknown flag type \"" << curLine << "\"";
+					std::cout << "WARNING: Unknown flag type: \"" << curLine << "\"\n";
+					if (curLine[0] == ' ')
+						std::cout << "Please remove the space in the beginning.\n";
+					else if (curLine[0] == '\t')
+						std::cout << "Please remove the tab in the beginning.\n";
 					std::cin.get();
 				}
 			}
@@ -297,7 +300,7 @@ bool checkForFlag(int argc, int& i, char* argv[])
 int main(int argc, char* argv[])
 {
 	std::cout << "===========================\n";
-	std::cout << "|        OBJ To Geom      |\n";
+	std::cout << "|       OBJ To Geom       |\n";
 	std::cout << "===========================\n";
 
 	if (argc == 1)
