@@ -176,8 +176,9 @@ namespace geom::colldef {
 				m_faces.push_back(indexset);
 			}
 			else
-				throw std::logic_error{ "ERROR: Weird face with "
-				+ std::to_string(facelist.size()) + " indices detected!"
+				throw std::logic_error{ "ERROR: Weird face that uses "
+				+ std::to_string(facelist.size()) + " vertices detected! Only quads & triangles "
+				"are supported!"
 			};
 		}
 		// the extra padding near the end of the faces needs to be taken into account too

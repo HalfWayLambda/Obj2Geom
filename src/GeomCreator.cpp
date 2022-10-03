@@ -11,7 +11,7 @@ std::string GeomCreator::replaceFileExtension(const char* fileName)
 	std::string outputName{ fileName };
 	std::size_t extensionOffset{ outputName.rfind('.') };
 	std::size_t backslashOffset{ outputName.rfind('\\') };
-	// erase the current OBJ's file extension
+	// erase the current OBJ's file extension, if it exists
 	if (extensionOffset != std::string::npos && extensionOffset > backslashOffset)
 	{
 		outputName.erase(extensionOffset);
