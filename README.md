@@ -1,6 +1,9 @@
 # Obj2Geom
 A tool to convert a wavefront OBJ file to a basic GEOM for MGS:V.
 
+## Requirements
+Microsoft Visual C++ 2015-2019 Redistributables (x86)
+
 ## Usage
 Simply drag and drop a wavefront OBJ file to **Obj2Geom.exe** and it should generate a GEOM file (making sure that the orientations of the OBJ fit with MGS:V's, see the troubleshooting section). However, there's a limitation of a maximum 255 faces for the OBJ file. The tool also allows you to change the material type and the collision tags (what it should collide with, for instance physics items, the player etc) of the generated GEOM, see below for the steps.
 
