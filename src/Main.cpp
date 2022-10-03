@@ -307,7 +307,7 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "| Flags:                  |\n";
 		std::cout << "===========================\n";
-		std::cout << "-mtr [0,79]\n";
+		std::cout << "-mtr [0,81]\n";
 		for (size_t i{ 0 }; i < materialMap.size(); i++)
 		{
 			std::string line{ "  " };
